@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">SIT305_task_2.1P</string>
+    <string-array name="Conversion_Type">
+        <item>Length</item>
+        <item>Weight</item>
+        <item>Temperature</item>
+    </string-array>
+
+    <string-array name="Weight">
+        <item>Pound</item>
+        <item>Ounce</item>
+        <item>Ton</item>
+        <item>g</item>
+        <item>kg</item>
+    </string-array>
+
+    <string-array name="Length">
+        <item>cm</item>
+        <item>inch</item>
+        <item>foot</item>
+        <item>yard</item>
+        <item>mile</item>
+        <item>km</item>
+    </string-array>
+
+    <string-array name="Temperature">
+    <item>F</item>
+    <item>C</item>
+    <item>K</item>
+    </string-array>
+
+    <string name="invalid_input">Invalid input</string>
+</resources>
