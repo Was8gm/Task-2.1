@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button convertButton = findViewById(R.id.convertButton);
+        convertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculateAndDisplayResult();
+            }
+        });
 
         conversionTypeSpinner = findViewById(R.id.conversionType);
         sourceUnitSpinner = findViewById(R.id.Source_Spinner);
@@ -55,30 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        AdapterView.OnItemSelectedListener unitChangeListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                calculateAndDisplayResult();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        };
-        sourceUnitSpinner.setOnItemSelectedListener(unitChangeListener);
-        targetUnitSpinner.setOnItemSelectedListener(unitChangeListener);
-
-        inputValue.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                calculateAndDisplayResult();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
     }
 
     private void updateSubSpinners(String unitType) {
@@ -105,9 +90,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void calculateAndDisplayResult() {
         try {
+            EditText inputValue = findViewById(R.id.inputValue);
+            TextView resultView = findViewById(R.id.resultView);
+
             double value = Double.parseDouble(inputValue.getText().toString());
             String sourceUnit = sourceUnitSpinner.getSelectedItem().toString();
             String targetUnit = targetUnitSpinner.getSelectedItem().toString();
+
             double result = convertUnits(sourceUnit, targetUnit, value);
             resultView.setText(String.format(Locale.getDefault(), "%.2f", result));
         } catch (NumberFormatException e) {
